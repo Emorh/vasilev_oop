@@ -1,6 +1,9 @@
-#include "Tasks.h"
-#include <vector>
 #include <iostream>
+#include <memory>
+#include <string>
+#include <vector>
+
+#include "Tasks.h"
 
 int main() {
 	using namespace TaskManager;
