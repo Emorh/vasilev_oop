@@ -73,10 +73,10 @@ namespace TaskManager {
 	private:
 	};
 
-	class BinaryNammedTask : public Task {
+	class BinaryNammedTask : public virtual Task, Named {
 	public:
-		BinaryNammedTask(Named name_of_task, std::function<double(double, double)> const binary_operation, double first_argument, double second_argument)
-			: m_name_of_task(std::move(name_of_task))
+		BinaryNammedTask(Named name_of_task, std::function<double(double, double)> const& binary_operation, double first_argument, double second_argument)
+			: Named(name_of_task)
 			, m_binary_operation(binary_operation)
 			, m_first_argument(first_argument)
 			, m_second_argument(second_argument)
@@ -87,7 +87,7 @@ namespace TaskManager {
 		}
 
 		std::string toString() const override {
-			std::string info = m_name_of_task.toString() + std::string(", binary operation with arguments = (") + std::to_string(m_first_argument) + std::string(", ") + std::to_string(m_second_argument) + std::string(")");
+			std::string info = Named::toString() + std::string(", binary operation with arguments = (") + std::to_string(m_first_argument) + std::string(", ") + std::to_string(m_second_argument) + std::string(")");
 			if (m_result) {
 				info += std::string(" Result = ") + std::to_string(*m_result);
 			}
@@ -99,7 +99,6 @@ namespace TaskManager {
 		}
 
 	private:
-		Named m_name_of_task;
 		std::function<double(double, double)> m_binary_operation;
 		double m_first_argument;
 		double m_second_argument;
